@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <div th:replace="~{fragments :: head}"></div>
+        <title>Modifica nota</title>
+    </head>
+    <body>
+        <div th:replace="~{navbar :: navbar}"></div>
+        <main>
+            <div class="container py-2">
+               <div class="row">
+                    <div class="col">
+                        <h1 class="text-center">Modifica nota</h1>
+                    </div>
+               </div>
+               <div class="row">
+                <div class="col-8">
+                            <form id="note-form" th:object="${note}" th:action="@{/note/edit/{id}(id=${note.id})}" method="post">
+                                <div class="form-floating mb-3">
+                                    <input type="hidden" th:field="*{ticket}" id="ticket"/>
+                                    <input type="hidden" th:field="*{author}" id="author"/>
+                                    <input type="hidden" th:field="*{data}" id="data"/>
+                                    <input th:field="*{text}" type="text" class="form-control" id="text" placeholder="Testo"  th:errorClass="is-invalid">
+                                    <label for="text">Nota</label>
+                                      <div th:if="${#fields.hasErrors('text')}" class="invalid-feedback">
+                                          <ul>
+                                              <li th:each="err : ${#fields.errors('text')}" th:text="${err}"></li>
+                                          </ul>
+                                      </div>
+                                </div>
+                                <button type="submit" class="btn btn-success"><i class="fa-solid fa-edit"></i> AGGIORNA</button>
+                            </form>
+                            <form action="#" th:action="@{'/note/delete/{id}'(id=${note.id})}" method="post">
+                                <button class="btn btn-danger" type="submit" id="submitButton" onclick="return confirm('Sei sicuro di voler proseguire?')"><i class="fa-solid fa-trash"></i> ELIMINA</button>
+                            </form>
+                </div>
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-header">
+                          Ricorda
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title">Assicurati di inserire i dati correttamente</h5>
+                          <p class="card-text">Prevenire è meglio che curare.</p>
+                        </div>
+                      </div>
+                </div>
+               </div>
+            </div>
+        </main>
+        
+        <div th:replace="~{fragments :: scripts}"></div>
+    </body>
+</html>

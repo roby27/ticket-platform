@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<th:block th:fragment="head">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" th:href="@{/css/application.css}">
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" />
+	<link th:rel="stylesheet" th:href="@{/webjars/font-awesome/6.5.2/css/all.css}" />
+</th:block>
+</head>
+<div th:fragment="alerts">
+	<div class="row p-2" th:if="${successMessage != null}">
+		<div class="col mx-auto">
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<strong th:text="${successMessage}"></strong>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		</div>
+	</div>
+	<div class="row p-2" th:if="${deleteMessage != null}">
+		<div class="col mx-auto">
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<strong th:text="${deleteMessage}"></strong>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div th:fragment="toast">
+
+	<div th:if="${successMessage != null}">
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+				var successToast = new bootstrap.Toast(document.getElementById('successToast'));
+				successToast.show();
+			});
+		</script>
+	</div>
+
+	<div th:if="${deleteMessage != null}">
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+				var deleteToast = new bootstrap.Toast(document.getElementById('deleteToast'));
+				deleteToast.show();
+			});
+		</script>
+	</div>
+
+	<div th:if="${statusError != null}">
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+				var deleteToast = new bootstrap.Toast(document.getElementById('statusErrorToast'));
+				deleteToast.show();
+			});
+		</script>
+	</div>
+
+	<div class="toast-container position-fixed bottom-0 end-0 p-3">
+		<div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="d-flex">
+			  <div class="toast-body" th:text="${successMessage}"></div>
+			  <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+		</div>
+		<div id="deleteToast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="d-flex">
+			  <div class="toast-body" th:text="${deleteMessage}"></div>
+			  <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+		</div>
+		<div id="statusErrorToast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="d-flex">
+			  <div class="toast-body" th:text="${statusError}"></div>
+			  <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+
+<body>
+	<div th:fragment="scripts">
+		<script th:src="@{/webjars/jquery/3.7.1/jquery.min.js}"></script>
+		<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+	</div>
+</body>
+</html>

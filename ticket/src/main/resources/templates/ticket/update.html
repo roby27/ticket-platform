@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <div th:replace="~{fragments :: head}"></div>
+        <title th:text="'Aggiorna Ticket #' + ${ticket.id}"></title>
+    </head>
+    <body>
+        <div th:replace="~{navbar :: navbar}"></div>
+        <main>
+            <div th:replace="~{fragments :: toast}"></div>
+            <div class="container py-3">
+               <div class="row">
+                    <div class="col">
+                        <h1 class="text-center" th:text="'Aggiorna Ticket #' + ${ticket.id}"></h1>
+                    </div>
+               </div>
+               <div class="row py-5">
+                <div class="col-8">
+                    <form class="row g-3" id="ticket-form" th:object="${ticket}" th:action="@{/ticket/update/{id}(id=${ticket.id})}" method="post">
+                        <input type="hidden" name="data" th:value="${ticket.data}">
+                        <div class="col-8">
+                            <div class="form-floating mb-3">
+                                <input th:field="*{description}" type="text" class="form-control" id="description" placeholder="Descrivi il problema..."  th:errorClass="is-invalid">
+                                <label for="description">Descrizione</label>
+                                  <div th:if="${#fields.hasErrors('description')}" class="invalid-feedback">
+                                      <ul>
+                                          <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+                                      </ul>
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="category" th:field="*{category}">
+                                    <option value="" selected>Scegli una categoria...</option>
+                                    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                                </select>
+                                  <label for="category">Categoria</label>
+                                <div th:if="${#fields.hasErrors('category')}" class="invalid-feedback">
+                                  <ul>
+                                      <li th:each="err : ${#fields.errors('category')}" th:text="${err}"></li>
+                                  </ul>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="user" th:field="*{user}">
+                                    <option value="" selected>Scegli un operatore disponibile...</option>
+                                    <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}"></option>
+                                </select>
+                                  <label for="user">Operatore</label>
+                                <div th:if="${#fields.hasErrors('user')}" class="invalid-feedback">
+                                  <ul>
+                                      <li th:each="err : ${#fields.errors('user')}" th:text="${err}"></li>
+                                  </ul>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="status" th:field="*{status}">
+                                    <option th:selected="${ticket.status == 'DA_FARE'}" value="DA_FARE">Da fare</option>
+                                    <option th:selected="${ticket.status == 'IN_CORSO'}" value="IN_CORSO">In corso</option>
+                                    <option th:selected="${ticket.status == 'COMPLETATO'}" value="COMPLETATO">Completato</option>
+                                </select>
+                                  <label for="status">Stato</label>
+                                <div th:if="${#fields.hasErrors('status')}" class="invalid-feedback">
+                                  <ul>
+                                      <li th:each="err : ${#fields.errors('status')}" th:text="${err}"></li>
+                                  </ul>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                          <button type="submit" class="btn btn-success"><i class="fa-solid fa-edit"></i> AGGIORNA</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-header">
+                          Aggiorna Stato
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title">Assicurati di inserire i dati correttamente</h5>
+                          <p class="card-text">Prevenire è meglio che curare.</p>
+                          
+                        </div>
+                      </div>
+                </div>
+               </div>
+            </div>
+        </main>
+        
+        <div th:replace="~{fragments :: scripts}"></div>
+    </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <div th:replace="~{fragments :: head}"></div>
+        <title>Dashboard</title>
+    </head>
+    <body>
+        <div th:replace="~{navbar :: navbar}"></div>
+        <main>
+            <div th:replace="~{fragments :: toast}"></div>
+            <div class="container py-2">
+                <div class="row py-2">
+                    <div class="col">
+                        <h1 class="text-center">Ciao <span th:text="${user.name}"></span></h1>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-6">
+                        <p th:text="'Il tuo username è: ' + ${user.username}"></p>
+                        <p th:text="'La tua mail è: ' + ${user.email}"></p>
+                        <p th:text="'Il tuo stato è: ' + ${user.availableToString}"></p>
+                    </div>
+                    <div class="col-6">
+                        <form th:object="${user}" th:action="@{/user/update-status}" method="post">
+                            <div class="input-group">
+                                <div class="form-floating">
+                                    <select id="status" name="status" class="form-select">
+                                        <option th:selected="${user.available == TRUE}" value="true">Disponibile</option>
+                                        <option th:selected="${user.available == FALSE}" value="false">Non Disponibile</option>
+                                    </select>
+                                    <label for="status">Aggiorna stato</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Aggiorna</button>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col">
+                        <div class="alert alert-danger" th:if="${statusError}" th:text="${statusError}"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <div th:replace="~{fragments :: scripts}"></div>
+    </body>
+</html>
