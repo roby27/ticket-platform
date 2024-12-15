@@ -35,7 +35,7 @@
                                     <td th:text="${ticket.description}"></td>
                                     <td th:text="${ticket.category.name}"></td>
                                     <td>
-                                        <span class="badge text-bg-primary" th:text="${ticket.status.description}"></span>
+                                        <div th:replace="~{fragments :: ticketStatus}"></div>
                                     </td>
                                     <td>
                                         <a class="btn btn-primary" th:href="@{|/ticket/detail/${ticket.id}|}"><i class="fa-solid fa-circle-info"></i></a>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="row">
                     <div class="col" th:if="${filteredTickets.isEmpty()}">
-                        <h4>Complimenti! Non hai altri ticket su cui lavorare. Adesso può impostare lo stato "Non disponibile", effettuare il logout e goderti il resto della giornata!</h4>
+                        <h4>Al momento non hai ticket su cui lavorare.</h4>
                     </div>
                 </div>
             </div>

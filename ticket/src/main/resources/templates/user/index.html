@@ -16,9 +16,20 @@
                 </div>
                 <div class="row py-2">
                     <div class="col-6">
-                        <p th:text="'Il tuo username è: ' + ${user.username}"></p>
-                        <p th:text="'La tua mail è: ' + ${user.email}"></p>
-                        <p th:text="'Il tuo stato è: ' + ${user.availableToString}"></p>
+                        <dt>Username</dt>
+                            <dd th:text="${user.username}"></dd>
+                        <dt>Mail</dt>
+                            <dd th:text="${user.email}"></dd>
+                        <dt>Ruolo</dt>
+                            <dd>
+                                <span th:each="role : ${user.roles}" th:text="${role.name}" th:classappend="${role.name == 'ADMIN'} ? 'badge bg-primary' : 'badge bg-secondary'"></span>
+                            </dd>
+                        <dt>Stato</dt>
+                            <dd>
+                                <span th:text="${user.availableToString}" th:classappend="${user.available} ? 'badge bg-success' : 'badge bg-danger'"></span>
+                            </dd>
+                            <hr>
+                        <a class="btn btn-primary" th:href="@{/user/edit}">Modifica dettagli</a>
                     </div>
                     <div class="col-6">
                         <form th:object="${user}" th:action="@{/user/update-status}" method="post">
@@ -31,7 +42,6 @@
                                     <label for="status">Aggiorna stato</label>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Aggiorna</button>
-
                             </div>
                         </form>
                     </div>

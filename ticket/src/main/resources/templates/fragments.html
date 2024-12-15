@@ -29,7 +29,6 @@
 </div>
 
 <div th:fragment="toast">
-
 	<div th:if="${successMessage != null}">
 		<script>
 			document.addEventListener('DOMContentLoaded', function () {
@@ -77,8 +76,12 @@
 			</div>
 		</div>
 	</div>
+</div>
 
-
+<div th:fragment="ticketStatus">
+	<span th:if="${ticket.status.description == 'Completato'}" class="badge text-bg-success" th:text="${ticket.status.description}"></span>
+	<span th:if="${ticket.status.description == 'Da fare'}" class="badge text-bg-danger" th:text="${ticket.status.description}"></span>
+	<span th:if="${ticket.status.description == 'In corso'}" class="badge text-bg-warning" th:text="${ticket.status.description}"></span>
 </div>
 
 

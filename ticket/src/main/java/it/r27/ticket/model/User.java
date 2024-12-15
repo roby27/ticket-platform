@@ -2,6 +2,7 @@ package it.r27.ticket.model;
 
 import java.util.Set;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -22,10 +23,12 @@ public class User {
     private String name;
 
     @NotBlank
+    @Column(unique = true)
     private String username;
 
     @NotBlank
     @Email
+    @Column(unique = true)
     private String email;
     
     @NotBlank

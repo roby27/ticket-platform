@@ -26,7 +26,9 @@
                             <dt>Operatore assegnato</dt>
                             <dd th:text="${ticket.user.name}"></dd>
                             <dt>Stato attuale</dt>
-                            <dd><span class="badge text-bg-secondary" th:text="${ticket.status.description}"></span></dd>
+                            <dd>
+                                <div th:replace="~{fragments :: ticketStatus}"></div>
+                            </dd>
                         </dl>
                     </div>
                 </div>

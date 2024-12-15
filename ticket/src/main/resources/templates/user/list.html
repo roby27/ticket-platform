@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <div th:replace="~{fragments :: head}"></div>
+        <title>Dashboard</title>
+    </head>
+    <body>
+        <div th:replace="~{navbar :: navbar}"></div>
+        <main>
+            <div th:replace="~{fragments :: toast}"></div>
+            <div class="container py-2">
+                <div class="row py-5">
+                    <div class="col-9">
+                        <a class="btn btn-primary" th:href="@{/user/new}" sec:authorize="hasAuthority('ADMIN')"><i class="fa-solid fa-plus"></i> AGGIUNGI</a>
+                    </div>
+                    <div class="col">
+                        <form class="d-flex" role="search">
+                            <div class="input-group">
+                                <input class="form-control" type="search" placeholder="Cerca..." aria-label="Cerca" th:value="${search}" name="search">
+                                <button class="btn btn-primary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                    <div class="row" th:if="${!users.isEmpty()}">
+                        <div class="col">
+                            <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Mail</th>
+                                    <th scope="col">Ruolo</th>
+                                    <th scope="col">Stato</th>
+                                    <th scope="col">Ticket da completare</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="user : ${users}">
+                                        <td th:text="${user.id}"></td>
+                                        <td th:text="${user.username}"></td>
+                                        <td th:text="${user.name}"></td>
+                                        <td th:text="${user.email}"></td>
+                                        <td>
+                                            <span th:each="role : ${user.roles}" th:text="${role.name}" th:classappend="${role.name == 'ADMIN'} ? 'badge bg-primary' : 'badge bg-secondary'"></span>
+                                        </td>
+                                        <td>
+                                            <span th:text="${user.availableToString}" th:classappend="${user.available} ? 'badge bg-success' : 'badge bg-danger'"></span>
+                                        </td>
+                                        <td>
+                                            <span th:text="${tickets[user.id]}" th:classappend="${tickets[user.id] == 0} ? 'badge rounded-pill text-bg-secondary' : 'badge rounded-pill text-bg-warning'"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                    <div class="row py-2" th:if="${users.isEmpty()}">
+                        <h1>Nessun utente trovato.</h1>
+                    </div>
+            </div>
+        </main>
+        
+        <div th:replace="~{fragments :: scripts}"></div>
+    </body>
+</html>

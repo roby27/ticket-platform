@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +42,7 @@ public class TicketController {
     private UserRepository userRepository;
 
     @GetMapping
-    public String index(Authentication authentication, Model model, @RequestParam(name = "search", required = false) String search, @AuthenticationPrincipal DatabaseUserDetails userDetails) {
+    public String index(Model model, @RequestParam(name = "search", required = false) String search, @AuthenticationPrincipal DatabaseUserDetails userDetails) {
         
         List<Ticket> allTickets;
 

@@ -46,7 +46,7 @@
                                         <td th:text="${ticket.category.name}"></td>
                                         <td th:text="${ticket.user.name}"></td>
                                         <td>
-                                            <span class="badge text-bg-primary" th:text="${ticket.status.description}"></span>
+                                            <div th:replace="~{fragments :: ticketStatus}"></div>
                                         </td>
                                         <td>
                                             <a class="btn btn-primary" th:href="@{|/ticket/detail/${ticket.id}|}"><i class="fa-solid fa-circle-info"></i></a>
@@ -87,7 +87,7 @@
                                         <td th:text="${ticket.category.name}"></td>
                                         <td th:text="${ticket.user.name}"></td>
                                         <td>
-                                            <span class="badge text-bg-primary" th:text="${ticket.status.description}"></span>
+                                            <div th:replace="~{fragments :: ticketStatus}"></div>
                                         </td>
                                         <td>
                                             <a class="btn btn-primary" th:href="@{|/ticket/detail/${ticket.id}|}"><i class="fa-solid fa-circle-info"></i></a>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <div th:replace="~{fragments :: head}"></div>
+        <title>Modifica utente</title>
+    </head>
+    <body>
+        <div th:replace="~{navbar :: navbar}"></div>
+        <main>
+            <div class="container py-2">
+               <div class="row">
+                    <div class="col">
+                        <h1 class="text-center">Modifica utente</h1>
+                    </div>
+               </div>
+               <div class="row">
+                <div class="col-8">
+                            <form id="note-form" th:object="${user}" th:action="@{/user/edit}" method="post">
+                                <input type="hidden" th:field="*{id}" id="id"/>
+                                <input type="hidden" th:field="*{password}" id="password"/>
+                                <input type="hidden" th:field="*{available}" id="available"/>
+                                <input type="hidden" th:field="*{roles}" id="roles" sec:authorize="hasAuthority('OPERATOR')"/>
+                                <div class="form-floating mb-3">
+                                    <input th:field="*{name}" type="text" class="form-control" id="text" placeholder="Testo"  th:errorClass="is-invalid">
+                                    <label for="text">Nome</label>
+                                      <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+                                          <ul>
+                                              <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+                                          </ul>
+                                      </div>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input th:field="*{username}" type="text" class="form-control" id="text" placeholder="Testo"  th:errorClass="is-invalid">
+                                    <label for="username">Username</label>
+                                      <div th:if="${#fields.hasErrors('username')}" class="invalid-feedback">
+                                          <ul>
+                                              <li th:each="err : ${#fields.errors('username')}" th:text="${err}"></li>
+                                          </ul>
+                                      </div>
+                                      <span><small><em></em></small></span>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input th:field="*{email}" type="email" class="form-control" id="text" placeholder="Testo"  th:errorClass="is-invalid">
+                                    <label for="email">Email</label>
+                                      <div th:if="${#fields.hasErrors('email')}" class="invalid-feedback">
+                                          <ul>
+                                              <li th:each="err : ${#fields.errors('email')}" th:text="${err}"></li>
+                                          </ul>
+                                      </div>
+                                </div>
+                                <div class="form-floating mb-3" sec:authorize="hasAuthority('ADMIN')">
+                                    <select class="form-select" id="roles" th:field="*{roles}">
+                                        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+                                      </select>
+                                      <label for="user">Ruolo</label>
+                                    <div th:if="${#fields.hasErrors('roles')}" class="invalid-feedback">
+                                      <ul>
+                                          <li th:each="err : ${#fields.errors('roles')}" th:text="${err}"></li>
+                                      </ul>
+                                  </div>
+                                </div>
+                                <button type="submit" class="btn btn-success"><i class="fa-solid fa-edit"></i> AGGIORNA</button>
+                            </form>
+                </div>
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-header">
+                          ATTENZIONE
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title">Assicurati di inserire i dati correttamente</h5>
+                          <div class="alert alert-warning" role="alert">
+                              <p class="card-text">Cambiando l'username verrà effettuato automaticamente il <mark>LOGOUT</mark>. 
+                                <hr>
+                                In seguito potrai effettuare il <mark>LOGIN</mark> con il nuovo nome utente.</p>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+               </div>
+            </div>
+        </main>
+        
+        <div th:replace="~{fragments :: scripts}"></div>
+    </body>
+</html>
