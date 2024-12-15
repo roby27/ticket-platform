@@ -16,6 +16,7 @@
                 <div class="row py-4" th:if="${!filteredTickets.isEmpty()}">
                     <div class="col">
                         <h4>Questi sono i ticket su cui dovrai lavorare oggi. Buon lavoro!</h4>
+                        <hr>
                         <table class="table table-striped">
                             <thead>
                               <tr>
@@ -40,6 +41,7 @@
                                     <td>
                                         <a class="btn btn-primary" th:href="@{|/ticket/detail/${ticket.id}|}"><i class="fa-solid fa-circle-info"></i></a>
                                         <a class="btn btn-success" th:href="@{|/ticket/update/${ticket.id}|}"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a class="btn btn-warning" th:href="@{|/ticket/${ticket.id}/note|}"><i class="fa-regular fa-note-sticky"></i></a>
                                     </td>
                                     <td>
                                     </td>

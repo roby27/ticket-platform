@@ -44,9 +44,10 @@
                                 <button type="submit" class="btn btn-primary">Aggiorna</button>
                             </div>
                         </form>
+                        <br>
+                        <div class="alert alert-danger" th:if="${statusError}" th:text="${statusError}"></div>
                     </div>
                     <div class="col">
-                        <div class="alert alert-danger" th:if="${statusError}" th:text="${statusError}"></div>
                     </div>
                 </div>
             </div>

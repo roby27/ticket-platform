@@ -23,12 +23,23 @@
           <div class="d-flex">
             <div class="flex-shrink-0 dropdown">
               <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle text-light" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa-solid fa-user text-light"></i>
+                <i class="fa-solid fa-user"></i></span>
               </a>
               <ul class="dropdown-menu text-small shadow">
-                <li><a class="dropdown-item" sec:authentication="name" th:href="@{/user}"></a></li>
+                <li >
+                  <a class="dropdown-item" th:href="@{/user}">
+                    <img src="https://placehold.co/24?text=AVATAR" class="rounded" alt="Avatar">
+                    <span sec:authentication="name"></span>
+                  </a>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN')"><hr class="dropdown-divider"></li>
+                <li sec:authorize="hasAuthority('ADMIN')"><a class="dropdown-item" th:href="@{/ticket/new}"><i class="fas fa-square-plus fa-fw"></i> Nuovo ticket</a></li>
+                <li sec:authorize="hasAuthority('ADMIN')"><a class="dropdown-item" th:href="@{/user/new}"><i class="fas fa-user-plus fa-fw"></i> Nuovo utente</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" th:href="@{/logout}"><i class="fas fa-sign-out"></i> Logout</a></li>
+                <li><a class="dropdown-item" th:href="@{/user}"><i class="fas fa-user fa-fw"></i> Profilo</a></li>
+                <li><a class="dropdown-item" th:href="@{/user/edit}"><i class="fas fa-user-edit fa-fw"></i> Modifica</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" th:href="@{/logout}"><i class="fas fa-sign-out fa-fw"></i> Logout</a></li>
               </ul>
             </div>
           </div>
